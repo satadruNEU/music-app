@@ -2,6 +2,9 @@
 
 Influur Pulse is a modern, AI-driven influencer marketing platform that helps brands create and manage effective influencer campaigns. The platform uses advanced algorithms to match brands with the perfect influencers and provides detailed campaign analytics and strategy recommendations.
 
+## 🌐 Live Demo
+Check out the live demo: [Influur Pulse](https://music-app-478r.vercel.app/)
+
 ## 🚀 Features
 
 ### Campaign Creation Flow
