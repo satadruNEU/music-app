@@ -1,0 +1,250 @@
+@import './styles/fonts.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --gradient-angle-offset {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --gradient-percent {
+  syntax: "<percentage>";
+  initial-value: 20%;
+  inherits: false;
+}
+
+@property --gradient-shine {
+  syntax: "<color>";
+  initial-value: #8484ff;
+  inherits: false;
+}
+
+:root {
+  --shiny-cta-bg: #000000;
+  --shiny-cta-bg-subtle: #1a1818;
+  --shiny-cta-fg: #ffffff;
+  --shiny-cta-highlight: #ffffff;
+  --shiny-cta-highlight-subtle: #ffffff;
+}
+
+@layer base {
+  body {
+    @apply bg-black text-white font-sans;
+  }
+}
+
+@layer components {
+  .hero-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-primary;
+  }
+  
+  .section {
+    @apply min-h-screen py-20;
+  }
+  
+  .card {
+    @apply bg-dark/50 backdrop-blur-lg border border-white/10 rounded-xl p-6;
+  }
+  
+  .glow-button {
+    @apply bg-primary text-white rounded-full hover:bg-primary/90 transition-colors;
+  }
+
+  .shiny-cta {
+    --gradient-angle: 0deg;
+    --gradient-angle-offset: 0deg;
+    --gradient-percent: 20%;
+    --gradient-shine: var(--shiny-cta-highlight-subtle);
+    --shadow-size: 2px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 9999px;
+    padding: 1.25rem 2.5rem;
+    font-size: 1.125rem;
+    line-height: 1.2;
+    font-weight: 500;
+    color: var(--shiny-cta-fg);
+    background: linear-gradient(var(--shiny-cta-bg), var(--shiny-cta-bg)) padding-box,
+      conic-gradient(
+        from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
+        transparent 0%,
+        var(--shiny-cta-highlight) 5%,
+        var(--gradient-shine) 15%,
+        var(--shiny-cta-highlight) 30%,
+        transparent 40%,
+        transparent 100%
+      ) border-box;
+    border: 2px solid transparent;
+    box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle);
+    outline: none;
+    transition: 
+      --gradient-angle-offset 800ms cubic-bezier(0.25, 1, 0.5, 1),
+      --gradient-percent 800ms cubic-bezier(0.25, 1, 0.5, 1),
+      --gradient-shine 800ms cubic-bezier(0.25, 1, 0.5, 1),
+      box-shadow 0.3s;
+    cursor: pointer;
+    isolation: isolate;
+    outline-offset: 4px;
+    font-family: inherit;
+    z-index: 0;
+    animation: border-spin 4s linear infinite;
+  }
+
+  .shiny-cta::before {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    --size: calc(100% - 6px);
+    --position: 2px;
+    --space: 4px;
+    width: var(--size);
+    height: var(--size);
+    background: radial-gradient(circle at var(--position) var(--position), white 0.5px, transparent 0) padding-box;
+    background-size: var(--space) var(--space);
+    background-repeat: space;
+    mask-image: conic-gradient(
+      from calc(var(--gradient-angle) + 45deg),
+      black,
+      transparent 10% 90%,
+      black
+    );
+    border-radius: inherit;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .shiny-cta::after {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    width: 100%;
+    aspect-ratio: 1;
+    background: linear-gradient(-50deg, transparent, var(--shiny-cta-highlight), transparent);
+    mask-image: radial-gradient(circle at bottom, transparent 40%, black);
+    opacity: 0.6;
+    animation: shimmer 4s linear infinite;
+    animation-play-state: running;
+  }
+
+  .shiny-cta span {
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+  }
+
+  .shiny-cta span::before {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    --size: calc(100% + 1rem);
+    width: var(--size);
+    height: var(--size);
+    box-shadow: inset 0 -1ex 2rem 4px var(--shiny-cta-highlight);
+    opacity: 0;
+    border-radius: inherit;
+    transition: opacity 800ms cubic-bezier(0.25, 1, 0.5, 1);
+    animation: breathe 4.5s linear infinite;
+  }
+}
+
+@keyframes border-spin {
+  to { --gradient-angle: 360deg; }
+}
+
+@keyframes shimmer {
+  to { transform: translate(-50%, -50%) rotate(360deg);}
+}
+
+@keyframes breathe {
+  0%, 100% { transform: translate(-50%, -50%) scale(1);}
+  50% { transform: translate(-50%, -50%) scale(1.20);}
+}
+
+/* Starry background animation */
+.stars {
+  @apply fixed inset-0 pointer-events-none;
+  background-image: radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
+                    radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+                    radial-gradient(2px 2px at 50px 160px, #fff, rgba(0,0,0,0)),
+                    radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
+                    radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)),
+                    radial-gradient(2px 2px at 160px 120px, #fff, rgba(0,0,0,0));
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  animation: twinkle 4s ease-in-out infinite;
+  opacity: 0.3;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/5 backdrop-blur-[20px];
+  }
+
+  .gradient-border {
+    @apply relative;
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(239, 68, 68, 0.1), rgba(59, 130, 246, 0.1));
+  }
+
+  .gradient-border::before {
+    content: '';
+    @apply absolute inset-0;
+    padding: 2px;
+    background: linear-gradient(135deg, #dc2626, #ef4444, #3b82f6);
+    @apply rounded-[inherit];
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    -webkit-mask-composite: xor;
+  }
+
+  .inner-glow {
+    @apply shadow-[inset_0_0_20px_rgba(220,38,38,0.3),inset_0_0_40px_rgba(239,68,68,0.2),0_0_30px_rgba(59,130,246,0.4)];
+  }
+
+  .card-border {
+    @apply bg-[rgba(220,38,38,0.08)] border border-[rgba(220,38,38,0.3)] backdrop-blur-[20px];
+    box-shadow: 
+      0 0 0 1px rgba(220, 38, 38, 0.3),
+      inset 0 0 30px rgba(220, 38, 38, 0.1),
+      inset 0 0 60px rgba(239, 68, 68, 0.05),
+      0 0 50px rgba(59, 130, 246, 0.2);
+  }
+
+  .connector {
+    stroke-dasharray: 8;
+    @apply animate-data-stream;
+  }
+
+  .table-float {
+    @apply animate-float;
+  }
+
+  .table-float:nth-child(2) { animation-delay: -1s; }
+  .table-float:nth-child(3) { animation-delay: -2s; }
+  .table-float:nth-child(4) { animation-delay: -3s; }
+} 
