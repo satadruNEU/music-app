@@ -4,6 +4,7 @@ Influur Pulse is a modern, AI-driven influencer marketing platform that helps br
 
 ## 🌐 Live Demo
 Check out the live demo: [Influur Pulse](https://music-app-478r.vercel.app/)
+[Colors are kept B&W themed default but can be customized according to artist/label]
 
 ## 🚀 Features
 
