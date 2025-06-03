@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import Hero from './components/Hero';
 import CampaignBriefing from './components/CampaignBriefing';
 import Matchmaking from './components/Matchmaking';
@@ -12,13 +12,11 @@ import LoadingTransition from './components/LoadingTransition';
 type CampaignStage = 'loading' | 'hero' | 'briefing' | 'loading-matchmaking' | 'matchmaking' | 'preview' | 'launch';
 
 const App = () => {
-  const [isLoading, setIsLoading] = useState(true);
   const [currentStage, setCurrentStage] = useState<CampaignStage>('loading');
   const [isTransitionExiting, setIsTransitionExiting] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsLoading(false);
       setCurrentStage('hero');
     }, 2000);
 

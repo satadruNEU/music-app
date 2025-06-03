@@ -24,7 +24,6 @@ const CampaignBriefing: React.FC<CampaignBriefingProps> = ({ onComplete }) => {
   const ageRef = React.useRef(null);
   const regionRef = React.useRef(null);
   const platformsRef = React.useRef(null);
-  const buttonRef = React.useRef(null);
 
   // Use useInView for each section
   const titleInView = useInView(titleRef, { margin: "-100px" });
@@ -33,7 +32,6 @@ const CampaignBriefing: React.FC<CampaignBriefingProps> = ({ onComplete }) => {
   const ageInView = useInView(ageRef, { margin: "-100px" });
   const regionInView = useInView(regionRef, { margin: "-100px" });
   const platformsInView = useInView(platformsRef, { margin: "-100px" });
-  const buttonInView = useInView(buttonRef, { margin: "-100px" });
 
   const toggleSelection = (category: keyof typeof campaignParams, value: string) => {
     setCampaignParams(prev => ({
@@ -225,7 +223,6 @@ const CampaignBriefing: React.FC<CampaignBriefingProps> = ({ onComplete }) => {
 
           {/* Continue Button */}
           <motion.div 
-            ref={buttonRef}
             initial={{ opacity: 1, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}

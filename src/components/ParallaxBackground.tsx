@@ -8,10 +8,9 @@ gsap.registerPlugin(ScrollTrigger);
 interface ParallaxBackgroundProps {
   fadeIn?: boolean;
   fadeOut?: boolean;
-  speed?: number;
 }
 
-const ParallaxBackground: React.FC<ParallaxBackgroundProps> = ({ fadeIn = false, fadeOut = false, speed = 1 }) => {
+const ParallaxBackground: React.FC<ParallaxBackgroundProps> = ({ fadeIn = false, fadeOut = false }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const opacityRef = useRef(1);
 
@@ -121,7 +120,6 @@ const ParallaxBackground: React.FC<ParallaxBackgroundProps> = ({ fadeIn = false,
     // Populate parallax layers
     const shapes: any[] = [];
     const shapeTypes = ['sphere', 'box', 'octahedron', 'tetrahedron', 'torus'];
-    const materials = [brightMaterial, accentMaterial];
 
     // Layer 1 - Foreground
     for(let i = 0; i < 20; i++) {
@@ -145,7 +143,6 @@ const ParallaxBackground: React.FC<ParallaxBackgroundProps> = ({ fadeIn = false,
       shapes.push({ 
         mesh: shape, 
         layer: 0, 
-        speed: Math.random() * 0.4 + 0.6,
         rotationSpeed: (Math.random() - 0.5) * 0.015,
         initialY: shape.position.y
       });
@@ -172,7 +169,6 @@ const ParallaxBackground: React.FC<ParallaxBackgroundProps> = ({ fadeIn = false,
       shapes.push({ 
         mesh: shape, 
         layer: 1, 
-        speed: Math.random() * 0.2 + 0.25,
         rotationSpeed: (Math.random() - 0.5) * 0.009,
         initialY: shape.position.y
       });
@@ -199,7 +195,6 @@ const ParallaxBackground: React.FC<ParallaxBackgroundProps> = ({ fadeIn = false,
       shapes.push({ 
         mesh: shape, 
         layer: 2, 
-        speed: Math.random() * 0.125 + 0.075,
         rotationSpeed: (Math.random() - 0.5) * 0.006,
         initialY: shape.position.y
       });
@@ -256,7 +251,7 @@ const ParallaxBackground: React.FC<ParallaxBackgroundProps> = ({ fadeIn = false,
 
       // Individual shape animations
       shapes.forEach((shapeData) => {
-        const { mesh, speed, rotationSpeed } = shapeData;
+        const { mesh, rotationSpeed } = shapeData;
         
         // Rotation
         mesh.rotation.x += rotationSpeed;

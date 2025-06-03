@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence, useInView, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, AnimatePresence, useInView, useScroll } from 'framer-motion';
 import ShinyCTA from './ShinyCTA';
 import ParallaxBackground from './ParallaxBackground';
 import AudioPlayer from './AudioPlayer';
@@ -64,7 +64,7 @@ const AnimatedNumber: React.FC<AnimatedNumberProps> = ({ value, prefix = '', suf
 const CampaignPreview: React.FC<CampaignPreviewProps> = ({ onLaunch }) => {
   const [isExiting, setIsExiting] = useState(false);
   const timelineRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
+  useScroll({
     target: timelineRef,
     offset: ["start end", "end start"]
   });

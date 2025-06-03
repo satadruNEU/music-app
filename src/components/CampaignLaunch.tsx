@@ -17,7 +17,7 @@ const CampaignLaunch: React.FC<CampaignLaunchProps> = ({ onNewCampaign }) => {
     width: window.innerWidth,
     height: window.innerHeight,
   });
-  const [isExiting, setIsExiting] = useState(false);
+  const [isExiting] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -61,7 +61,7 @@ const CampaignLaunch: React.FC<CampaignLaunchProps> = ({ onNewCampaign }) => {
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
           >
-            <ParallaxBackground fadeIn={true} fadeOut={isExiting} speed={0.5} />
+            <ParallaxBackground fadeIn={true} fadeOut={isExiting} />
           </motion.div>
         )}
       </AnimatePresence>

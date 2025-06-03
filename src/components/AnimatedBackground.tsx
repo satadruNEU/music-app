@@ -54,7 +54,6 @@ const AnimatedBackground: React.FC = () => {
           }
         }
 
-        const intensity = Math.min(1, freq * 0.3);
         const r = 255;
         const g = 255;
         const b = 255;

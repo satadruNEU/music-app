@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence, useInView, useScroll, useTransform } from 'framer-motion';
 import ShinyCTA from './ShinyCTA';
 import ParallaxBackground from './ParallaxBackground';
@@ -12,9 +12,6 @@ interface MatchmakingProps {
 const Matchmaking: React.FC<MatchmakingProps> = ({ onComplete }) => {
   const [isExiting, setIsExiting] = useState(false);
   const [selectedInfluencers, setSelectedInfluencers] = useState<string[]>([]);
-  const [progress, setProgress] = useState(0);
-  const [currentStep, setCurrentStep] = useState(0);
-  const [showResults, setShowResults] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
   
   // Create refs for each section
@@ -28,7 +25,6 @@ const Matchmaking: React.FC<MatchmakingProps> = ({ onComplete }) => {
   const titleInView = useInView(titleRef, { margin: "-100px" });
   const descriptionInView = useInView(descriptionRef, { margin: "-100px" });
   const influencersInView = useInView(influencersRef, { margin: "-100px" });
-  const buttonInView = useInView(buttonRef, { margin: "-100px" });
 
   // Add scroll-based animation
   const { scrollYProgress } = useScroll({
@@ -37,44 +33,6 @@ const Matchmaking: React.FC<MatchmakingProps> = ({ onComplete }) => {
   });
 
   const x = useTransform(scrollYProgress, [0, 1], [0, -375]);
-
-  const steps = [
-    "Analyzing campaign parameters...",
-    "Scanning influencer database...",
-    "Calculating engagement metrics...",
-    "Matching brand alignment...",
-    "Optimizing for target audience...",
-    "Finalizing recommendations..."
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setShowResults(true);
-          return 100;
-        }
-        return prev + 1;
-      });
-    }, 50);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const stepInterval = setInterval(() => {
-      setCurrentStep(prev => {
-        if (prev >= steps.length - 1) {
-          clearInterval(stepInterval);
-          return prev;
-        }
-        return prev + 1;
-      });
-    }, 2000);
-
-    return () => clearInterval(stepInterval);
-  }, []);
 
   const handleComplete = () => {
     setIsExiting(true);
@@ -103,7 +61,7 @@ const Matchmaking: React.FC<MatchmakingProps> = ({ onComplete }) => {
             exit={{ opacity: 0, transition: { duration: 1 } }}
             transition={{ duration: 1 }}
           >
-            <ParallaxBackground fadeIn={true} fadeOut={isExiting} speed={0.5} />
+            <ParallaxBackground fadeIn={true} fadeOut={isExiting} />
           </motion.div>
         )}
       </AnimatePresence>

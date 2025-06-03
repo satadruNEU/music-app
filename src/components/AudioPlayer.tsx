@@ -11,9 +11,8 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   audioFile = '/audio/weekend-intrumental.mp3'
 }) => {
   const [isMuted, setIsMuted] = useState(false);
-  const [hasInteracted, setHasInteracted] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const fadeIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const fadeIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     try {
@@ -29,7 +28,6 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
         playPromise
           .then(() => {
             setIsMuted(false);
-            setHasInteracted(true);
           })
           .catch(() => {
             // If autoplay fails, keep muted
@@ -87,7 +85,6 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
             .then(() => {
               audioRef.current!.volume = 0.3;
               setIsMuted(false);
-              setHasInteracted(true);
             })
             .catch(err => {
               console.error('Error playing audio:', err);
